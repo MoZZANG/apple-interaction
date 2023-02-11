@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
 import styled from "@emotion/styled";
 
-const ThirdVideoScrollSection = () => {
+const ThirdVideoScrollSection = forwardRef((_, ref) => {
   const stickyDescMsgData = [
     {
       comment:
@@ -13,14 +13,14 @@ const ThirdVideoScrollSection = () => {
   ];
   return (
     <Section>
-      <StickyMessage>
+      <StickyMessage ref={(elem) => (ref.current[0] = elem)}>
         <p>
           <small>편안한 촉감</small>입과 하나되다
         </p>
       </StickyMessage>
       {stickyDescMsgData.map((data, i) => {
         return (
-          <StickyDescMsg key={i}>
+          <StickyDescMsg key={i} ref={(elem) => (ref.current[i + 1] = elem)}>
             <p>{data.comment}</p>
             <Pin></Pin>
           </StickyDescMsg>
@@ -28,12 +28,12 @@ const ThirdVideoScrollSection = () => {
       })}
     </Section>
   );
-};
+});
 
 const Section = styled.section``;
 const StickyMessage = styled.div`
-  display: block;
-  position: sticky;
+  display: none;
+  /* position: sticky; */
   top: 0;
   left: 0;
   font-size: 3.5rem;
@@ -57,8 +57,8 @@ const StickyMessage = styled.div`
 `;
 
 const StickyDescMsg = styled.div`
-  display: block;
-  position: sticky;
+  display: none;
+  /* position: sticky; */
   top: ${({ index }) => (index ? "15%" : "10%")};
   left: ${({ index }) => (index ? "45%" : "40%")};
   font-weight: bold;

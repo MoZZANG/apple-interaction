@@ -1,11 +1,11 @@
-const firSecOpacityInValue = [
+export const fstSecOpacityInValue = [
   [0, 1, { start: 0.1, end: 0.2 }],
   [0, 1, { start: 0.3, end: 0.4 }],
   [0, 1, { start: 0.5, end: 0.6 }],
   [0, 1, { start: 0.7, end: 0.8 }],
 ];
 
-const firSecOpacityOutValue = [
+export const fstSecOpacityOutValue = [
   [1, 0, { start: 0.25, end: 0.3 }],
   [1, 0, { start: 0.45, end: 0.5 }],
   [1, 0, { start: 0.65, end: 0.7 }],
@@ -70,51 +70,55 @@ const thirdSecPinsScaleYValue = [
 
 export const firSecScrollRatios = [0.22, 0.42, 0.62, 0.82];
 
-const setNewArr = (length, inValue, outValue) => {
-  return new Array(length).fill(0).map((_, i) => {
-    return { in: inValue[i], out: outValue[i] };
-  });
+const getSceneInfos = () => {
+  return;
 };
 
-export const msgOpacity = [];
-msgOpacity[0] = setNewArr(
-  firSecOpacityInValue.length,
-  firSecOpacityInValue,
-  firSecOpacityOutValue
-);
+// const setNewArr = (length, inValue, outValue) => {
+//   return new Array(length).fill(0).map((_, i) => {
+//     return { in: inValue[i], out: outValue[i] };
+//   });
+// };
 
-msgOpacity[2] = setNewArr(
-  thirdSecOpacityInValue.length,
-  thirdSecOpacityInValue,
-  thirdSecOpacityOutValue
-);
+// export const msgOpacity = [];
+// msgOpacity[0] = setNewArr(
+//   firSecOpacityInValue.length,
+//   firSecOpacityInValue,
+//   firSecOpacityOutValue
+// );
 
-export const msgTranslateY = [];
-msgTranslateY[0] = setNewArr(
-  firSecTranslateYInValue.length,
-  firSecTranslateYInValue,
-  firSecTranslateYOutValue
-);
+// msgOpacity[2] = setNewArr(
+//   thirdSecOpacityInValue.length,
+//   thirdSecOpacityInValue,
+//   thirdSecOpacityOutValue
+// );
 
-msgTranslateY[2] = setNewArr(
-  thirdSecTranslateYInValue.length,
-  thirdSecTranslateYInValue,
-  thirdSecTranslateYOutValue
-);
+// export const msgTranslateY = [];
+// msgTranslateY[0] = setNewArr(
+//   firSecTranslateYInValue.length,
+//   firSecTranslateYInValue,
+//   firSecTranslateYOutValue
+// );
 
-export const pinOpacity = [];
-pinOpacity[2] = setNewArr(
-  thirdSecPinsOpacityInValue.length,
-  thirdSecPinsOpacityInValue,
-  thirdSecPinsOpacityOutValue
-);
+// msgTranslateY[2] = setNewArr(
+//   thirdSecTranslateYInValue.length,
+//   thirdSecTranslateYInValue,
+//   thirdSecTranslateYOutValue
+// );
 
-export const pinScaleY = [];
-pinScaleY[2] = setNewArr(
-  thirdSecPinsScaleYValue.length,
-  thirdSecPinsScaleYValue,
-  []
-);
+// export const pinOpacity = [];
+// pinOpacity[2] = setNewArr(
+//   thirdSecPinsOpacityInValue.length,
+//   thirdSecPinsOpacityInValue,
+//   thirdSecPinsOpacityOutValue
+// );
+
+// export const pinScaleY = [];
+// pinScaleY[2] = setNewArr(
+//   thirdSecPinsScaleYValue.length,
+//   thirdSecPinsScaleYValue,
+//   []
+// );
 // [
 //   { in: thirdSecPinsScaleYValue[1] },
 //   { in: thirdSecPinsScaleYValue[2] },

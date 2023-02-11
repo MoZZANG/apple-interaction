@@ -24,7 +24,7 @@ const GNBSub = () => {
 };
 
 const NavLayout = styled.div`
-  position: absolute;
+  position: sticky;
   top: 45px;
   left: 0;
   width: 100%;

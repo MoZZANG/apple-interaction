@@ -1,8 +1,8 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import React from "react";
+import React, { forwardRef } from "react";
 
-const FirstVideoScrollSection = () => {
+const FirstVideoScrollSection = forwardRef((_, ref) => {
   const stickyMsgData = [
     { upper: "온전히 빠져들기 하는", lower: "최고급 세라믹" },
     { upper: " 주변 맛을 느끼게 해주는", lower: " 주변 맛 허용모드" },
@@ -22,7 +22,7 @@ const FirstVideoScrollSection = () => {
       </div>
       {stickyMsgData.map((data, i) => {
         return (
-          <StickyMessage key={i}>
+          <StickyMessage key={i} ref={(elem) => (ref.current[i] = elem)}>
             <p>
               {data.upper}
               <br />
@@ -33,7 +33,7 @@ const FirstVideoScrollSection = () => {
       })}
     </Section>
   );
-};
+});
 
 const Section = styled.section`
   font-size: 4rem;
@@ -46,7 +46,7 @@ const Section = styled.section`
   } ;
 `;
 const StickyMessage = styled.div`
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   height: 3em;
@@ -56,7 +56,7 @@ const StickyMessage = styled.div`
   width: 100%;
   top: 35vh;
   left: 0;
-  /* opacity: 0; */
+  opacity: 0;
   > p {
     line-height: 1.2;
     font-weight: bold;

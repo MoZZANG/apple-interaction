@@ -24,7 +24,7 @@ const GNBUpper = () => {
 };
 
 const NavLayout = styled.div`
-  position: absolute;
+  position: sticky;
   top: 0;
   left: 0;
   width: 100%;
