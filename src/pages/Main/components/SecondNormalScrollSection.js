@@ -34,6 +34,7 @@ const SecondNormalScrollSection = () => {
 };
 
 const Section = styled.section`
+  padding: 10vh 0;
   p {
     font-size: 1.2rem;
     color: #888;

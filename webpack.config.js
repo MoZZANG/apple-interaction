@@ -4,6 +4,9 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const webpack = require("webpack");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 module.exports = (env, argv) => {
   const prod = argv.mode === "production";
@@ -26,6 +29,12 @@ module.exports = (env, argv) => {
       alias: {
         Constants: path.resolve(__dirname, "./src/constants/"),
         Component: path.resolve(__dirname, "/src/component"),
+      },
+      fallback: {
+        // 👇️👇️👇️ add this 👇️👇️👇️
+        fs: false,
+        os: false,
+        path: false,
       },
     },
 
@@ -59,6 +68,9 @@ module.exports = (env, argv) => {
             : false,
       }),
       new CleanWebpackPlugin(),
+      new webpack.DefinePlugin({
+        "process.env": JSON.stringify(process.env),
+      }),
     ],
   };
 };

@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import React, { forwardRef } from "react";
 
 const FirstVideoScrollSection = forwardRef((_, ref) => {
+  const { fstSecStickyMsgArrRef, fstSecCanvasRef } = ref;
   const stickyMsgData = [
     { upper: "온전히 빠져들기 하는", lower: "최고급 세라믹" },
     { upper: " 주변 맛을 느끼게 해주는", lower: " 주변 맛 허용모드" },
@@ -12,17 +13,15 @@ const FirstVideoScrollSection = forwardRef((_, ref) => {
   return (
     <Section>
       <h1>AirMug Pro</h1>
-      <div>
-        <canvas
-          css={css`
-          width: :1920px;
-          height: 1080px;
-          `}
-        />
-      </div>
+      <CanvasWrapper>
+        <canvas ref={fstSecCanvasRef} width="1920" height="1080"></canvas>
+      </CanvasWrapper>
       {stickyMsgData.map((data, i) => {
         return (
-          <StickyMessage key={i} ref={(elem) => (ref.current[i] = elem)}>
+          <StickyMessage
+            key={i}
+            ref={(elem) => (fstSecStickyMsgArrRef.current[i] = elem)}
+          >
             <p>
               {data.upper}
               <br />
@@ -36,8 +35,15 @@ const FirstVideoScrollSection = forwardRef((_, ref) => {
 });
 
 const Section = styled.section`
+  padding-top: 50vh;
   font-size: 4rem;
   text-align: center;
+
+  > h1 {
+    position: relative;
+    top: -10vh;
+    z-index: 5;
+  }
 
   @media (min-width: 1024px) {
     h1 {
@@ -47,14 +53,14 @@ const Section = styled.section`
 `;
 const StickyMessage = styled.div`
   display: none;
-  justify-content: center;
-  align-items: center;
-  height: 3em;
+  /* justify-content: center;
+  align-items: center; */
+  /* height: 3em; */
   font-size: 2.5rem;
-  margin: 5px 0;
+  /* margin: 5px 0; */
   position: sticky;
   width: 100%;
-  top: 35vh;
+  top: 45vh;
   left: 0;
   opacity: 0;
   > p {
@@ -65,6 +71,22 @@ const StickyMessage = styled.div`
 
   @media (min-width: 1024px) {
     font-size: 4vw;
+  }
+`;
+
+const CanvasWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 96px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  > canvas {
+    position: absolute;
+    top: 50%;
+    left: 50%;
   }
 `;
 

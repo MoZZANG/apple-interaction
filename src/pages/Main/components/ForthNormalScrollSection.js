@@ -28,7 +28,9 @@ const ForthNormalScrollSection = ({ showMessage }) => {
   );
 };
 
-const Section = styled.section``;
+const Section = styled.section`
+  padding-top: 50vh;
+`;
 const MidMessage = styled.p`
   font-size: 2rem;
   padding: 0 1rem;

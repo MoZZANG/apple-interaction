@@ -2,6 +2,7 @@ import React, { forwardRef } from "react";
 import styled from "@emotion/styled";
 
 const ThirdVideoScrollSection = forwardRef((_, ref) => {
+  const { trdSecStickyMsgArrRef, trdSecPinArrRef, trdSecCanvasRef } = ref;
   const stickyDescMsgData = [
     {
       comment:
@@ -13,16 +14,24 @@ const ThirdVideoScrollSection = forwardRef((_, ref) => {
   ];
   return (
     <Section>
-      <StickyMessage ref={(elem) => (ref.current[0] = elem)}>
+      <CanvasWrapper>
+        <canvas ref={trdSecCanvasRef} width="1920" height="1080"></canvas>
+      </CanvasWrapper>
+      <StickyMessage ref={(elem) => (trdSecStickyMsgArrRef.current[0] = elem)}>
         <p>
           <small>편안한 촉감</small>입과 하나되다
         </p>
       </StickyMessage>
+
       {stickyDescMsgData.map((data, i) => {
         return (
-          <StickyDescMsg key={i} ref={(elem) => (ref.current[i + 1] = elem)}>
+          <StickyDescMsg
+            key={i}
+            index={i}
+            ref={(elem) => (trdSecStickyMsgArrRef.current[i + 1] = elem)}
+          >
             <p>{data.comment}</p>
-            <Pin></Pin>
+            <Pin ref={(elem) => (trdSecPinArrRef.current[i + 1] = elem)}></Pin>
           </StickyDescMsg>
         );
       })}
@@ -30,12 +39,15 @@ const ThirdVideoScrollSection = forwardRef((_, ref) => {
   );
 });
 
-const Section = styled.section``;
+const Section = styled.section`
+  padding-top: 50vh;
+`;
 const StickyMessage = styled.div`
   display: none;
-  /* position: sticky; */
-  top: 0;
-  left: 0;
+  position: sticky;
+  justify-content: center;
+  align-items: center;
+  top: 35vh;
   font-size: 3.5rem;
   line-height: 1.2;
   font-weight: bold;
@@ -58,7 +70,7 @@ const StickyMessage = styled.div`
 
 const StickyDescMsg = styled.div`
   display: none;
-  /* position: sticky; */
+  position: sticky;
   top: ${({ index }) => (index ? "15%" : "10%")};
   left: ${({ index }) => (index ? "45%" : "40%")};
   font-weight: bold;
@@ -77,4 +89,20 @@ const Pin = styled.div`
   background-color: black;
 `;
 
+const CanvasWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 96px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  > canvas {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+  }
+`;
 export default ThirdVideoScrollSection;

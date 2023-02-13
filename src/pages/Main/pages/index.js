@@ -5,7 +5,19 @@ import ForthNormalScrollSection from "../components/ForthNormalScrollSection";
 import SecondNormalScrollSection from "../components/SecondNormalScrollSection";
 import ThirdVideoScrollSection from "../components/ThirdVideoScrollSection";
 import { getRemoveOnRenderTree, scrollLoop, setLayout } from "../../../utils";
-import { fstSecOpacityInValue } from "../data/animationData";
+import {
+  fstSecOpacityInValue,
+  fstSecOpacityOutValue,
+  fstSecTranslateYInValue,
+  fstSecTranslateYOutValue,
+  trdSecPinsOpacityOutValue,
+  trdSecOpacityInValue,
+  trdSecOpacityOutValue,
+  trdSecPinsOpacityInValue,
+  trdSecTranslateYInValue,
+  trdSecTranslateYOutValue,
+  trdSecPinsScaleYValue,
+} from "../data/animationData";
 
 export const MainPage = () => {
   const mainRef = useRef();
@@ -14,9 +26,11 @@ export const MainPage = () => {
   /**useEffect에서 호출하는 함수의 클로저 해결을 위한 현재 section index */
   const currSecIdxRef = useRef(0);
   const fstSecStickyMsgArrRef = useRef([]);
+  const fstSecCanvasRef = useRef();
   const trdSecStickyMsgArrRef = useRef([]);
+  const trdSecPinArrRef = useRef([]);
+  const trdSecCanvasRef = useRef();
   const [currSceneIdx, setCurrSecIdx] = useState(0);
-
   useEffect(() => {
     /**모든 section에 대한 정보가 담긴 배열 */
     const sceneInfos = [
@@ -28,9 +42,18 @@ export const MainPage = () => {
         objs: {
           container: mainRef.current.childNodes[0],
           sticky_msgs: fstSecStickyMsgArrRef.current,
+          canvas: fstSecCanvasRef.current,
+          context: fstSecCanvasRef.current.getContext("2d"),
+          videoImagesArr: [],
         },
         values: {
           msg_opacity_in_arr: fstSecOpacityInValue,
+          msg_opacity_out_arr: fstSecOpacityOutValue,
+          msg_translate_in_arr: fstSecTranslateYInValue,
+          msg_translate_out_arr: fstSecTranslateYOutValue,
+          videoImageCount: 300,
+          imageSequence: [0, 299],
+          canvas_opacity: [1, 0, { start: 0.85, end: 0.95 }],
         },
       },
       {
@@ -50,6 +73,24 @@ export const MainPage = () => {
         objs: {
           container: mainRef.current.childNodes[2],
           sticky_msgs: trdSecStickyMsgArrRef.current,
+          sticky_msgs: trdSecStickyMsgArrRef.current,
+          pins: trdSecPinArrRef.current,
+          canvas: trdSecCanvasRef.current,
+          context: trdSecCanvasRef.current.getContext("2d"),
+          videoImagesArr: [],
+        },
+        values: {
+          msg_opacity_in_arr: trdSecOpacityInValue,
+          msg_opacity_out_arr: trdSecOpacityOutValue,
+          msg_translate_in_arr: trdSecTranslateYInValue,
+          msg_translate_out_arr: trdSecTranslateYOutValue,
+          pins_opacity_in_arr: trdSecPinsOpacityInValue,
+          pins_opacity_out_arr: trdSecPinsOpacityOutValue,
+          pins_scaleY_arr: trdSecPinsScaleYValue,
+          videoImageCount: 960,
+          imageSequence: [0, 959],
+          canvas_opacity_in: [0, 1, { start: 0, end: 0.1 }],
+          canvas_opacity_out: [1, 0, { start: 0.9, end: 1 }],
         },
       },
       {
@@ -62,22 +103,33 @@ export const MainPage = () => {
         },
       },
     ];
-
     setLayout(sceneInfos, currSecIdxRef);
 
     window.addEventListener("resize", () => {
       setLayout(sceneInfos, currSecIdxRef);
+    });
+    window.addEventListener("load", () => {
+      setLayout(sceneInfos, currSecIdxRef);
+      if (currSecIdxRef.current === 0)
+        sceneInfos[0].objs.context.drawImage(
+          sceneInfos[0].objs.videoImagesArr[0],
+          0,
+          0
+        );
     });
     window.addEventListener("scroll", () => {
       scrollLoop(sceneInfos, prevScrollHeightRef, setCurrSecIdx, currSecIdxRef);
     });
 
     return () => {
-      removeEventListener("resize", () => {
+      window.removeEventListener("resize", () => {
+        setLayout(sceneInfos, currSecIdxRef);
+      });
+      window.removeEventListener("load", () => {
         setLayout(sceneInfos, currSecIdxRef);
       });
 
-      removeEventListener("scroll", () => {
+      window.removeEventListener("scroll", () => {
         scrollLoop(
           sceneInfos,
           prevScrollHeightRef,
@@ -100,9 +152,13 @@ export const MainPage = () => {
 
   return (
     <MainLayout ref={mainRef} className="test">
-      <FirstVideoScrollSection ref={fstSecStickyMsgArrRef} />
+      <FirstVideoScrollSection
+        ref={{ fstSecStickyMsgArrRef, fstSecCanvasRef }}
+      />
       <SecondNormalScrollSection />
-      <ThirdVideoScrollSection ref={trdSecStickyMsgArrRef} />
+      <ThirdVideoScrollSection
+        ref={{ trdSecStickyMsgArrRef, trdSecPinArrRef, trdSecCanvasRef }}
+      />
       <ForthNormalScrollSection />
     </MainLayout>
   );
@@ -110,6 +166,6 @@ export const MainPage = () => {
 
 const MainLayout = styled.div`
   > section {
-    padding-top: 50vh;
+    /* padding-top: 45vh; */
   }
 `;

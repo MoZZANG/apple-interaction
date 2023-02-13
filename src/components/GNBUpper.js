@@ -30,6 +30,7 @@ const NavLayout = styled.div`
   width: 100%;
   height: 44px;
   padding: 0 14px;
+  z-index: 10;
 `;
 const NavLinks = styled.nav`
   display: flex;

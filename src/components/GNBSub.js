@@ -31,6 +31,7 @@ const NavLayout = styled.div`
   height: 52px;
   padding: 14px;
   border-bottom: 1px solid #ddd;
+  z-index: 10;
 `;
 const NavLinks = styled.nav`
   display: flex;
