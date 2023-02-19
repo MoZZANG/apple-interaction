@@ -30,6 +30,8 @@ export const MainPage = () => {
   const trdSecStickyMsgArrRef = useRef([]);
   const trdSecPinArrRef = useRef([]);
   const trdSecCanvasRef = useRef();
+  const fthSecCaptionRef = useRef();
+  const fthSecCanvasRef = useRef();
   const [currSceneIdx, setCurrSecIdx] = useState(0);
   useEffect(() => {
     /**모든 section에 대한 정보가 담긴 배열 */
@@ -100,9 +102,24 @@ export const MainPage = () => {
         scrollHeight: 0,
         objs: {
           container: mainRef.current.childNodes[3],
+          canvasCaption: fthSecCaptionRef.current,
+          canvas: fthSecCanvasRef.current,
+          context: fthSecCanvasRef.current.getContext("2d"),
+          imagesArr: [],
+        },
+        values: {
+          imagesCount: 2,
+          leftRectCoorX: [0, 0, { start: 0, end: 0 }],
+          rightRectCoorX: [0, 0, { start: 0, end: 0 }],
+          blendHeight: [0, 0, { start: 0, end: 0 }],
+          canvas_scale: [0, 0, { start: 0, end: 0 }],
+          canvasCaption_opacity: [0, 1, { start: 0, end: 0 }],
+          canvasCaption_translateY: [20, 0, { start: 0, end: 0 }],
+          rectStartY: 0,
         },
       },
     ];
+
     setLayout(sceneInfos, currSecIdxRef);
 
     window.addEventListener("resize", () => {
@@ -159,7 +176,7 @@ export const MainPage = () => {
       <ThirdVideoScrollSection
         ref={{ trdSecStickyMsgArrRef, trdSecPinArrRef, trdSecCanvasRef }}
       />
-      <ForthNormalScrollSection />
+      <ForthNormalScrollSection ref={{ fthSecCaptionRef, fthSecCanvasRef }} />
     </MainLayout>
   );
 };

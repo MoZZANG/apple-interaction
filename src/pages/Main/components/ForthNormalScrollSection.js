@@ -1,7 +1,8 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import styled from "@emotion/styled";
 
-const ForthNormalScrollSection = ({ showMessage }) => {
+const ForthNormalScrollSection = forwardRef((_, ref) => {
+  const { fthSecCaptionRef, fthSecCanvasRef } = ref;
   return (
     <Section>
       <MidMessage>
@@ -11,7 +12,8 @@ const ForthNormalScrollSection = ({ showMessage }) => {
         <br />
         아름답고 부드러운 음료 공간.
       </MidMessage>
-      <Caption>
+      <canvas width="1920" height="1080" ref={fthSecCanvasRef} />
+      <Caption ref={fthSecCaptionRef}>
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eveniet at
         fuga quae perspiciatis veniam impedit et, ratione est optio porro.
         Incidunt aperiam nemo voluptas odit quisquam harum in mollitia. Incidunt
@@ -26,17 +28,25 @@ const ForthNormalScrollSection = ({ showMessage }) => {
       </Caption>
     </Section>
   );
-};
+});
 
 const Section = styled.section`
+  position: relative; // canvas.offsetTop을 위한 position
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding-top: 50vh;
+  > canvas {
+    /* margin-left: 20px; */
+  }
 `;
+
 const MidMessage = styled.p`
-  font-size: 2rem;
+  width: 1000px;
+  margin: 0 auto 10rem;
   padding: 0 1rem;
+  font-size: 2rem;
   color: #888;
-  max-width: 1000px;
-  margin: 0 auto;
 
   strong {
     color: black;
@@ -47,11 +57,11 @@ const MidMessage = styled.p`
   }
 `;
 const Caption = styled.p`
-  color: #888;
+  max-width: 1000px;
+  margin: -8rem auto 0;
   padding: 0 1rem;
   font-size: 1.2rem;
-  max-width: 1000px;
-  margin: 0 auto;
+  color: #888;
 
   @media (min-width: 1024px) {
     font-size: 2rem;

@@ -83,6 +83,7 @@ const CanvasWrapper = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
+
   > canvas {
     position: absolute;
     top: 50%;
