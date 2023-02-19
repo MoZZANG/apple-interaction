@@ -3,20 +3,20 @@ const setCanvasImages = (sceneInfos) => {
   let imgElem;
   for (let i = 0; i < sceneInfos[0].values.videoImageCount; i++) {
     imgElem = new Image();
-    imgElem.src = `/videoImage/001/IMG_${6726 + i}.JPG`;
+    imgElem.src = `./videoImage/001/IMG_${6726 + i}.JPG`;
     sceneInfos[0].objs.videoImagesArr.push(imgElem);
   }
 
   // let imgElem2;
   for (let i = 0; i < sceneInfos[2].values.videoImageCount; i++) {
     imgElem = new Image();
-    imgElem.src = `/videoImage/002/IMG_${7027 + i}.JPG`;
+    imgElem.src = `./videoImage/002/IMG_${7027 + i}.JPG`;
     sceneInfos[2].objs.videoImagesArr.push(imgElem);
   }
 
   for (let i = 0; i < sceneInfos[3].values.imagesCount; i++) {
     imgElem = new Image();
-    imgElem.src = `/images/photo${i + 1}.jpg`;
+    imgElem.src = `./images/photo${i + 1}.jpg`;
     sceneInfos[3].objs.imagesArr.push(imgElem);
   }
 };
