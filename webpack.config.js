@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const webpack = require("webpack");
 const dotenv = require("dotenv");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 dotenv.config();
 
@@ -17,7 +18,7 @@ module.exports = (env, argv) => {
     entry: path.resolve(__dirname, "/src/index.js"),
     output: {
       path: path.join(__dirname, "/dist"),
-      filename: "[name].js",
+      filename: "main.js",
       publicPath: "/",
     },
     devServer: {
@@ -45,7 +46,7 @@ module.exports = (env, argv) => {
           use: ["babel-loader"],
         },
         {
-          test: /\.(png|jpe?g|gif)$/i,
+          test: /\.(png|jpe?g|gif)$/g,
           loader: "file-loader",
           options: {
             name: "assets/[name].[ext]",
@@ -54,11 +55,14 @@ module.exports = (env, argv) => {
       ],
     },
     plugins: [
+      new CopyWebpackPlugin({
+        patterns: [{ from: "public", to: "" }],
+      }),
       new webpack.ProvidePlugin({
         React: "react",
       }),
       new HtmlWebpackPlugin({
-        template: "./public/index.html",
+        template: "./src/index.html",
         minify:
           process.env.NODE_ENV === "production"
             ? {

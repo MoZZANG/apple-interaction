@@ -4,5 +4,6 @@
     "paths": {
       "@constants": ["./src/constants"]
     }
-  }
+  },
+  "include": ["public/images/**/*", "public/videoImage"]
 }
